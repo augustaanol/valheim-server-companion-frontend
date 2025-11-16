@@ -43,8 +43,10 @@ export default function RootLayout({
             backgroundRepeat: "no-repeat",
             minHeight: "100vh",
           }}
-          direction="column">
-            <Container size="4">
+          direction="column"
+          className="px-5 md:px-0"
+          >
+            <Container size={{md:"4", initial: "1"}} className="flex flex-col min-h-screen">
               <Flex align={"center"} className="pt-6 pb-12 gap-6 sticky top-0">
                 <Image alt="logo" src="/images/valheim_logo_large.webp" width={"160"} height={"100"}/>
                 <Heading 

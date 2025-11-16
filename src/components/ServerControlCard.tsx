@@ -38,6 +38,25 @@ export default function ServerControlCard() {
     return () => clearInterval(interval);
   }, []);
 
+
+  const [players, setPlayers] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/active-players");
+        const data = await res.json();
+        setPlayers(data.online);
+      } catch (e) {
+        setPlayers(null);
+      }
+    }
+
+    load();
+    const interval = setInterval(load, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Card>
       <Flex direction="column" gap="4" className="p-2">
@@ -66,9 +85,11 @@ export default function ServerControlCard() {
             </Button>
           </Flex>
 
-          <Flex align={"center"} gap="2">
+          <Flex align="center" gap="2">
             <Text>Gracze online:</Text>
-            <Badge color="gray">0</Badge>
+            <Badge color={players ? "green" : "gray"}>
+              {players === null ? "?" : players}
+            </Badge>
           </Flex>
       </Flex>
     </Card>

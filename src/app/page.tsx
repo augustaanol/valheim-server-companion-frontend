@@ -11,13 +11,13 @@ export default function Home() {
   return (
     <Flex direction="column" gap={defaultGap}>
 			
-      <Flex direction={"row"} gap={defaultGap} justify={"between"}>
+      <Flex direction={{md:"row", initial: "column"}} gap={defaultGap} justify={"between"}>
         
-        <Flex direction={"column"} className="w-1/3" gap={defaultGap}>
+        <Flex direction={"column"} className="lg:w-1/3" gap={defaultGap}>
           <ServerControlCard />
         </Flex>
 
-        <Flex direction={"column"} className="w-2/3" gap={defaultGap}>
+        <Flex direction={"column"} className="lg:w-2/3" gap={defaultGap}>
           <Card>
             <Flex direction={"column"} gap={"2"} className="p-2">
               <Heading as="h2" mb="2" trim="start">Statystyki</Heading>
