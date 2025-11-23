@@ -1,28 +1,21 @@
 version: "3.9"
 
 services:
-  nextjs:
-    image: node:20
-    working_dir: /app
-    container_name: valheim_next
+  frontend:
+    container_name: valheim-server-companion-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
 
     environment:
+      # Next.js env
+      NEXT_PUBLIC_BACKEND_URL: "${NEXT_PUBLIC_BACKEND_URL}"
+
+      # reszta zmiennych przekazywana do API routes Next.js
       PORTAINER_URL: "${PORTAINER_URL}"
       PORTAINER_TOKEN: "${PORTAINER_TOKEN}"
       CONTAINER_NAME: "${CONTAINER_NAME}"
-      NEXT_PUBLIC_BACKEND_URL: "${NEXT_PUBLIC_BACKEND_URL}"
 
     ports:
       - "3000:3000"
-
-    volumes:
-      - ./:/app
-      - /app/node_modules
-
-    command: >
-      sh -c "
-        npm install &&
-        npm run build &&
-        npm start
-      "
