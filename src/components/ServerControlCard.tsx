@@ -7,8 +7,9 @@ type BadgeColor = "green" | "red" | "yellow" | "gray";
 
 type PlayersList = {
   name: string;
-  score: number;
-  duration: number;
+  hp: [number, number];
+  steam_id: string;
+  position: [number, number, number];
 };
 
 export default function ServerControlCard() {
@@ -95,7 +96,7 @@ export default function ServerControlCard() {
 
   return (
     <Card>
-      <Flex direction="column" gap="4" className="p-2">
+      <Flex direction="column" gap="3" className="p-4">
         {/* --- STATUS SERWERA --- */}
         <Flex justify="between">
           <HoverCard.Root>
@@ -137,7 +138,7 @@ export default function ServerControlCard() {
 
         {/* --- GRACZE ONLINE --- */}
         {serverActive && (
-          <Flex align="center" gap="2">
+          <Flex align="center" gap="2" className="mt-2">
             <Text>Gracze online:</Text>
             <Badge color={playerCount && playerCount > 0 ? "green" : "gray"}>
               {playerCount ?? 0}
@@ -148,14 +149,22 @@ export default function ServerControlCard() {
         {serverActive && playersList && playersList.length > 0 && (
           <Flex direction="column" gap="2">
             
-            {playersList.map((player) => (
+            {playersList?.map((player) => (
               <Card key={player.name}>
                 <Flex justify={"between"} align={"center"}>
-                  <Text>{player.name}</Text>
-                  <Flex direction={"column"}>
-                    <Flex gap={"3"} align={"center"}>
-                      <Text>Czas sesji:</Text>
-                      <Badge color="blue">{Math.floor(player.duration / 60)} min</Badge>
+                  <Flex direction={"column"} gap={"1"}>
+                    <Text weight={"bold"}>{player.name}</Text>
+                    <Text size={"1"}>{player.steam_id}</Text>
+                  </Flex>
+                  
+                  <Flex direction={"column"} gap={"1"}>
+                    <Flex gap={"3"} align={"center"} justify={"between"}>
+                      <Text size={"1"}>HP:</Text>
+                      <Badge color="gray" size={"1"}><Text weight={"regular"}>{player.hp[0]} / {player.hp[1]}</Text></Badge>
+                    </Flex>
+                    <Flex gap={"3"} align={"center"} justify={"between"}>
+                      <Text size={"1"}>Position:</Text>
+                      <Badge color="gray" size={"1"}><Text weight={"regular"}>{player.position[0]}, {player.position[1]}, {player.position[2]}</Text></Badge>
                     </Flex>
                   </Flex>
                 </Flex>

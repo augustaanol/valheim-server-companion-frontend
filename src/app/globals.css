@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --container-size-3: 1136px; /* domyślnie 880px */
+  --container-4: 1500px; /* domyślnie 1136px */
 }
 
 @theme inline {
@@ -24,4 +26,3 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-

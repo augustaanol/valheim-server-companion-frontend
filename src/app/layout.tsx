@@ -35,7 +35,13 @@ export default function RootLayout({
       <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-        <Theme appearance="dark" accentColor="amber" radius="full" grayColor="mauve">
+        <Theme 
+          appearance="dark" 
+          accentColor="amber" 
+          radius="full" 
+          grayColor="mauve"
+          >
+
           <Flex style={{
             backgroundImage: "url('/images/background.jpg')",
             backgroundSize: "cover",
