@@ -126,10 +126,10 @@ export default function ServerControlCard() {
     <Card>
       <Flex direction="column" gap="3" className="p-4">
         {/* --- STATUS SERWERA --- */}
-        <Flex justify="between" align="center">
+        <Flex justify="between" align="center" className="mb-2">
           <HoverCard.Root>
             <HoverCard.Trigger>
-              <Heading as="h2" mb="2" trim="start" style={{ cursor: "default" }}>
+              <Heading as="h2" style={{ cursor: "default" }}>
                 Status serwera
               </Heading>
             </HoverCard.Trigger>
