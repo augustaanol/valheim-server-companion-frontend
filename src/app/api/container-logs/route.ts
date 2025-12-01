@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
   
   try {
     const res = await fetch(
-      `${PORTAINER_URL}/endpoints/${ENDPOINT_ID}/docker/containers/${CONTAINER_NAME}/json`,
+      `${PORTAINER_URL}/api/endpoints/${ENDPOINT_ID}/docker/containers/${CONTAINER_NAME}/json`,
       { 
         headers: getHeaders(), 
         agent: httpsAgent,
@@ -74,7 +74,7 @@ export async function GET(req: NextRequest) {
 // --- LOGIKA POBIERANIA LOGÓW (Wewnętrzna funkcja, Endpoint: /api?logs=true) ---
 async function GET_LOGS() {
   try {
-    const logUrl = new URL(`${PORTAINER_URL}/endpoints/${ENDPOINT_ID}/docker/containers/${CONTAINER_NAME}/logs`);
+    const logUrl = new URL(`${PORTAINER_URL}/api/endpoints/${ENDPOINT_ID}/docker/containers/${CONTAINER_NAME}/logs`);
     logUrl.searchParams.append("stdout", "true");
     logUrl.searchParams.append("stderr", "true");
     logUrl.searchParams.append("timestamps", "true");
