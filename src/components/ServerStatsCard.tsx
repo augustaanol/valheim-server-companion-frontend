@@ -39,33 +39,28 @@ export default function ServerStatsCard() {
 
 
   return (
-    <Card className="w-full">
-      <Flex direction="column" gap="2" className="p-4 w-full">
-        <Heading as="h2" mb="2" trim="start">
-          Statystyki
-        </Heading>
+    <Flex direction="column" gap="2" className="w-full">
 
-        {stats.length === 0 && <div>Ładowanie…</div>}
+      {stats.length === 0 && <div>Ładowanie…</div>}
 
-        <Flex gap="4" wrap="wrap" className="w-full">
-          {stats.map((stat, i) => (
-            <Card
-              key={i}
-              className="w-1/3 md:w-1/4 lg:w-1/6 2xl:w-1/10 aspect-square flex items-center justify-center"
+      <Flex gap="4" wrap="wrap" className="w-full">
+        {stats.map((stat, i) => (
+          <Card
+            key={i}
+            className="w-1/3 md:w-1/4 lg:w-1/6 2xl:w-1/10 aspect-square flex items-center justify-center"
+          >
+            <Flex
+              direction="column"
+              align="center"
+              justify="center"
+              className="p-2 text-center w-full h-full"
             >
-              <Flex
-                direction="column"
-                align="center"
-                justify="center"
-                className="p-2 text-center w-full h-full"
-              >
-                <Text size="6" className="font-bold">{stat.value}</Text>
-                <Text size="3">{stat.name}</Text>
-              </Flex>
-            </Card>
-          ))}
-        </Flex>
+              <Text size="6" className="font-bold">{stat.value}</Text>
+              <Text size="3">{stat.name}</Text>
+            </Flex>
+          </Card>
+        ))}
       </Flex>
-    </Card>
+    </Flex>
   );
 }
