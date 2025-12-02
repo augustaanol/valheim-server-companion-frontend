@@ -14,7 +14,7 @@ export default function CommandsPage() {
                     <TeleportCard />
                 </Flex>
                 <Flex className="w-full lg-w-1/2 min-h-30">
-                    <Card className="w-full"></Card>
+                    
                 </Flex>
             </Flex>
         </Flex>
