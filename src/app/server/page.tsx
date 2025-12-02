@@ -10,8 +10,8 @@ export default function Server() {
     return (
         <Flex direction="column" gap={defaultGap}>
             <Flex direction={{initial: "column", md: "row"}} gap={defaultGap}>
-                <Card className="w-full lg-w-1/2 p-4 min-h-30"></Card>
-                <Card className="w-full lg-w-1/2 p-4 min-h-30"></Card>
+                {/* <Card className="w-full lg-w-1/2 p-4 min-h-30"></Card>
+                <Card className="w-full lg-w-1/2 p-4 min-h-30"></Card> */}
             </Flex>
             <ServerLogCard />
         </Flex>
