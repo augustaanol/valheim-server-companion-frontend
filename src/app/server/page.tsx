@@ -1,7 +1,8 @@
 "use client";
 
-import { Flex, Card } from "@radix-ui/themes";
+import { Flex } from "@radix-ui/themes";
 import { ServerLogCard } from "@/components/ServerLogCard";
+import ServerResourcesCard from "@/components/ServerResourcesCard";
 
 export default function Server() {
 
@@ -10,8 +11,9 @@ export default function Server() {
     return (
         <Flex direction="column" gap={defaultGap}>
             <Flex direction={{initial: "column", md: "row"}} gap={defaultGap}>
-                {/* <Card className="w-full lg-w-1/2 p-4 min-h-30"></Card>
-                <Card className="w-full lg-w-1/2 p-4 min-h-30"></Card> */}
+                <Flex direction={"column"} className="w-full md:w-1/2 lg:w-1/3">
+                    <ServerResourcesCard />
+                </Flex>
             </Flex>
             <ServerLogCard />
         </Flex>

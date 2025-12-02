@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { Card, Flex, Text } from "@radix-ui/themes";
 
 export default function ServerStatsCard() {
   const [stats, setStats] = useState<
