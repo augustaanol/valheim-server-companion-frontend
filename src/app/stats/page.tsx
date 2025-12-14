@@ -1,6 +1,8 @@
 "use client";
 
 import { Flex, Card, Heading } from "@radix-ui/themes";
+import ServerStatsCard from "@/components/ServerStatsCard";
+
 
 export default function Stats() {
 
@@ -8,6 +10,7 @@ export default function Stats() {
 
     return (
         <Flex direction="column" gap={defaultGap}>
+            <ServerStatsCard />
             <Flex direction={{initial: "column", md: "row"}} gap={defaultGap}>
                 <Card className="w-full lg-w-1/2 min-h-30">
                     <Flex direction={"column"} className="p-4">

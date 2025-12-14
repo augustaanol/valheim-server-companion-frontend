@@ -6,6 +6,7 @@ import { Pirata_One } from "next/font/google";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { useServerStore } from "@/store/serverStore";
 
 
 const pirataOne = Pirata_One({
@@ -14,10 +15,10 @@ const pirataOne = Pirata_One({
     });
 
 const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Serwer", href: "/server" },
-    { name: "Statystyki", href: "/stats" },
-    { name: "Komendy", href: "/commands" },
+    { name: "Home", href: "/", alwaysVisible: true },
+    { name: "Serwer", href: "/server", alwaysVisible: false },
+    { name: "Statystyki", href: "/stats", alwaysVisible: true },
+    { name: "Komendy", href: "/commands", alwaysVisible: false },
 ];
 
 
@@ -28,6 +29,8 @@ export default function Navbar({ titleText }: {titleText: string }) {
         /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     const pathname = usePathname();
+
+    const { serverActive } = useServerStore();
 
     return (
         <>
@@ -50,7 +53,7 @@ export default function Navbar({ titleText }: {titleText: string }) {
                             const isActive = pathname === link.href;
 
                             return (
-                            <Link key={link.href} href={link.href}>
+                            <Link key={link.href} href={link.href} hidden={!link.alwaysVisible && !serverActive}>
                                 <Text
                                     size="4"
                                     weight={isActive ? "medium" : "regular"}
@@ -90,7 +93,7 @@ export default function Navbar({ titleText }: {titleText: string }) {
                             const isActive = pathname === link.href;
                             return (
                             <Box key={link.href} p="1"width={"full"}>
-                                <Link href={link.href}>
+                                <Link href={link.href} hidden={!link.alwaysVisible && !serverActive}>
                                     <DropdownMenu.Item>
                                             <Text 
                                             size={"5"}

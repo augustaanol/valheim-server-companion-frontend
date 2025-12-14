@@ -3,10 +3,13 @@
 import { Flex } from "@radix-ui/themes";
 import ServerControlCard from "@/components/ServerControlCard";
 import ServerStatsCard from "@/components/ServerStatsCard";
+import { useServerStore } from "@/store/serverStore";
 
 export default function Home() {
 
   const defaultGap: string = "4";
+
+  const { serverActive } = useServerStore();
 
   return (
     <Flex direction="column" gap={defaultGap}>
@@ -16,10 +19,11 @@ export default function Home() {
         <Flex direction={"column"} className="2xl:w-1/4 lg:w-2/5" gap={defaultGap}>
           <ServerControlCard />
         </Flex>
-
+        {serverActive && (
         <Flex direction={"column"} className="2xl:w-3/4 lg:w-3/5" gap={defaultGap}>
           <ServerStatsCard />
         </Flex>
+        )}
       </Flex>
       
 		</Flex>
