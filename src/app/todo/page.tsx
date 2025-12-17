@@ -3,6 +3,7 @@
 import { Flex, Separator } from "@radix-ui/themes";
 import { ToDoColumn } from "@/components/ToDoColumn";
 import { ToDoItem as ToDoListType } from "@/types/todo";
+import { useState } from "react";
 
 
 export const mockTodos: ToDoListType[] = [
@@ -227,6 +228,8 @@ export const mockTodos: ToDoListType[] = [
 
 
 export default function ToDoList() {
+
+    const [todos, setTodos] = useState<ToDoListType[]>(mockTodos);
 
     const defaultGap: string = "4";
 
