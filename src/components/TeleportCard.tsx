@@ -6,7 +6,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { useServerStore } from "@/store/serverStore";
 
 export default function TeleportCard() {
-    const { serverActive, playersList } = useServerStore();
+    const { serverActive, ActivePlayersList } = useServerStore();
 
     const [playerToTeleport, setPlayerToTeleport] = useState<string | null>(null);
     const [teleportTarget, setTeleportTarget] = useState<string | null>(null);
@@ -76,7 +76,7 @@ export default function TeleportCard() {
                             <Select.Root onValueChange={setPlayerToTeleport} size={{initial: initialSelectSize, md: "2"}}>
                                 <Select.Trigger placeholder="player" />
                                 <Select.Content>
-                                    {playersList.map((player) => (
+                                    {ActivePlayersList.map((player) => (
                                         <Select.Item key={player.steam_id} value={player.steam_id}>
                                             {player.name}
                                         </Select.Item>
@@ -90,7 +90,7 @@ export default function TeleportCard() {
                             <Select.Root onValueChange={setTeleportTarget} size={{initial: initialSelectSize, md: "2"}}>
                                 <Select.Trigger placeholder="target" />
                                 <Select.Content>
-                                    {playersList.map((player) => (
+                                    {ActivePlayersList.map((player) => (
                                         <Select.Item
                                             key={player.steam_id}
                                             value={player.position ? player.position.join(" ") : ""}

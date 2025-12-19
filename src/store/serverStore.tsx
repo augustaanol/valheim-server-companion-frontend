@@ -1,13 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-
-export type PlayersList = {
-  name: string;
-  hp: [number, number] | null;
-  steam_id: string;
-  position: [number, number, number] | null;
-};
+import { ActivePlayersList, AllPlayersList } from "@/types/playersTypes";
 
 type ServerStore = {
   running: boolean;
@@ -15,7 +9,8 @@ type ServerStore = {
   isInitialLoading: boolean;
   actionLoading: boolean;
   playerCount: number | null;
-  playersList: PlayersList[];
+  ActivePlayersList: ActivePlayersList[];
+  AllPlayersList: AllPlayersList[];
   serverName: string | null;
   serverSteamID: string | null;
 
@@ -32,7 +27,8 @@ export const useServerStore = create<ServerStore>((set, get) => ({
   isInitialLoading: true,
   actionLoading: false,
   playerCount: null,
-  playersList: [],
+  ActivePlayersList: [],
+  AllPlayersList: [],
   serverName: null,
   serverSteamID: null,
 
@@ -51,7 +47,8 @@ export const useServerStore = create<ServerStore>((set, get) => ({
         playerCount: data.player_count ?? null,
         serverName: data.server_name ?? null,
         serverSteamID: data.steam_id ?? null,
-        playersList: Array.isArray(data.players) ? data.players : [],
+        ActivePlayersList: Array.isArray(data.active_players) ? data.active_players : [],
+        AllPlayersList: Array.isArray(data.all_players) ? data.all_players : [],
       });
     } catch (error) {
       console.warn("Server offline lub błąd fetch:", error);
@@ -60,7 +57,7 @@ export const useServerStore = create<ServerStore>((set, get) => ({
         running: false,
         serverActive: false,
         playerCount: null,
-        playersList: [],
+        ActivePlayersList: [],
       });
     } finally {
       set({ isInitialLoading: false });
@@ -83,7 +80,7 @@ export const useServerStore = create<ServerStore>((set, get) => ({
         set({
           serverActive: false,
           playerCount: null,
-          playersList: [],
+          ActivePlayersList: [],
         });
       }
     } catch (err) {

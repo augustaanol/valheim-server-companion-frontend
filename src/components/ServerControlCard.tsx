@@ -21,7 +21,7 @@ export default function ServerControlCard() {
     isInitialLoading,
     actionLoading,
     playerCount,
-    playersList,
+    ActivePlayersList,
     serverName,
     serverSteamID,
     handleAction,
@@ -103,9 +103,9 @@ export default function ServerControlCard() {
         )}
 
         {/* LISTA GRACZY */}
-        {serverActive && playersList && playersList.length > 0 && (
+        {serverActive && ActivePlayersList && ActivePlayersList.length > 0 && (
           <Flex direction="column" gap="2">
-            {playersList.map((player) => (
+            {ActivePlayersList.map((player) => (
               <Card key={player.steam_id}>
                 <Flex justify="between" align="center">
                   <Flex direction="column" gap="1">

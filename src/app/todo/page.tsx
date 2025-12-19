@@ -2,273 +2,171 @@
 
 import { Flex, Separator } from "@radix-ui/themes";
 import { ToDoColumn } from "@/components/ToDoColumn";
-import { ToDoItem as ToDoListType } from "@/types/todo";
+import { ToDoItem as ToDoListType, TaskUpdate as TaskUpdate, NewTaskInput } from "@/types/todo";
 import { useState } from "react";
+import { useUserStore } from "@/store/useUserStore";
+import { useEffect } from "react";
+import { fetchTasks, deleteTask, createTask,updateTask } from "@/app/api/tasks";
+import { createComment, deleteComment } from "@/app/api/comments";
 
 
-export const mockTodos: ToDoListType[] = [
-    {
-        id: 1,
-        title: "Zbudować główny magazyn",
-        description: "Centralny magazyn na drewno, kamień i rudy przy portalu",
-        createdAt: "2025-12-01T10:00:00Z",
-        creatorId: 1,
-        status: "in-progress",
-        tag: "important",
-        comments: [
-            {
-                id: 1,
-                content: "Proponuję budowę z core wood + stone floor",
-                createdAt: "2025-12-01T11:00:00Z",
-                authorId: 2,
-            },
-            {
-                id: 2,
-                content: "Uwaga na stabilność, potrzebne filary",
-                createdAt: "2025-12-01T12:30:00Z",
-                authorId: 3,
-            },
-        ],
-    },
-    {
-        id: 2,
-        title: "Zebrać drewno na budowę",
-        description: "Minimum 10 stacków zwykłego drewna",
-        createdAt: "2025-12-01T09:30:00Z",
-        creatorId: 2,
-        status: "todo",
-        tag: "normal",
-        comments: [
-            {
-                id: 3,
-                content: "Ja ogarnę Black Forest",
-                createdAt: "2025-12-01T09:45:00Z",
-                authorId: 2,
-            },
-            {
-                id: 4,
-                content: "Zostawcie pnie, użyję do core wood",
-                createdAt: "2025-12-01T10:10:00Z",
-                authorId: 1,
-            },
-        ],
-    },
-    {
-        id: 3,
-        title: "Farma marchwi",
-        description: "Założyć farmę przy bazie startowej",
-        createdAt: "2025-12-02T08:00:00Z",
-        creatorId: 3,
-        status: "done",
-        tag: "normal",
-        comments: [
-            {
-                id: 5,
-                content: "Nasiona już posadzone",
-                createdAt: "2025-12-02T09:00:00Z",
-                authorId: 3,
-            },
-            {
-                id: 6,
-                content: "Zrobiłem ogrodzenie przed dzikami",
-                createdAt: "2025-12-02T10:15:00Z",
-                authorId: 1,
-            },
-        ],
-    },
-    {
-        id: 4,
-        title: "Ubić Eikthyra",
-        description: "Pierwszy boss – potrzebne poroża",
-        createdAt: "2025-12-02T14:00:00Z",
-        creatorId: 1,
-        status: "done",
-        tag: "important",
-        comments: [
-            {
-                id: 7,
-                content: "Każdy niech weźmie tarczę",
-                createdAt: "2025-12-02T14:10:00Z",
-                authorId: 1,
-            },
-            {
-                id: 8,
-                content: "Boss pokonany bez strat 💪",
-                createdAt: "2025-12-02T15:00:00Z",
-                authorId: 2,
-            },
-        ],
-    },
-    {
-        id: 5,
-        title: "Postawić hutę i piec",
-        description: "Przetapianie miedzi i cyny",
-        createdAt: "2025-12-03T09:00:00Z",
-        creatorId: 2,
-        status: "in-progress",
-        tag: "important",
-        comments: [
-            {
-                id: 9,
-                content: "Brakuje jeszcze surtling cores",
-                createdAt: "2025-12-03T09:30:00Z",
-                authorId: 2,
-            },
-        ],
-    },
-    {
-        id: 6,
-        title: "Kopalnia miedzi",
-        description: "Wyczyścić złoże w Black Forest",
-        createdAt: "2025-12-03T13:00:00Z",
-        creatorId: 3,
-        status: "todo",
-        tag: "normal",
-        comments: [
-            {
-                id: 10,
-                content: "Weźcie kilofy z poroży",
-                createdAt: "2025-12-03T13:10:00Z",
-                authorId: 1,
-            },
-            {
-                id: 11,
-                content: "Uwaga na trolle w okolicy",
-                createdAt: "2025-12-03T13:25:00Z",
-                authorId: 3,
-            },
-        ],
-    },
-    {
-        id: 7,
-        title: "Portal do Black Forest",
-        description: "Szybki dostęp do kopalni",
-        createdAt: "2025-12-04T08:30:00Z",
-        creatorId: 1,
-        status: "todo",
-        tag: "important",
-        comments: [],
-    },
-    {
-        id: 8,
-        title: "Ulepszyć warsztat",
-        description: "Dodać chopping block i tanning rack",
-        createdAt: "2025-12-04T11:00:00Z",
-        creatorId: 2,
-        status: "in-progress",
-        tag: "normal",
-        comments: [
-            {
-                id: 12,
-                content: "Skóry już w skrzyni",
-                createdAt: "2025-12-04T11:30:00Z",
-                authorId: 2,
-            },
-        ],
-    },
-    {
-        id: 9,
-        title: "Zorganizować skrzynie",
-        description: "Podział: jedzenie, surowce, gear",
-        createdAt: "2025-12-05T09:00:00Z",
-        creatorId: 3,
-        status: "todo",
-        tag: "backlog",
-        comments: [],
-    },
-    {
-        id: 10,
-        title: "Przygotowanie na The Elder",
-        description: "Jedzenie, bronie, portal awaryjny",
-        createdAt: "2025-12-05T15:00:00Z",
-        creatorId: 1,
-        status: "todo",
-        tag: "important",
-        comments: [
-            {
-                id: 13,
-                content: "Potrzebne fire arrows",
-                createdAt: "2025-12-05T15:30:00Z",
-                authorId: 1,
-            },
-            {
-                id: 14,
-                content: "Zrobię honey + cooked meat",
-                createdAt: "2025-12-05T16:00:00Z",
-                authorId: 3,
-            },
-            {
-                id: 15,
-                content: "Zrobię honey + cooked meat",
-                createdAt: "2025-12-05T16:00:00Z",
-                authorId: 3,
-            },
-            {
-                id: 16,
-                content: "Zrobię honey + cooked meat",
-                createdAt: "2025-12-05T16:00:00Z",
-                authorId: 3,
-            },
-            {
-                id: 17,
-                content: "Zrobię honey + cooked meat",
-                createdAt: "2025-12-05T16:00:00Z",
-                authorId: 3,
-            },
-            {
-                id: 18,
-                content: "Zrobię honey + cooked meat",
-                createdAt: "2025-12-05T16:00:00Z",
-                authorId: 3,
-            },
-        ],
-    },
-];
 
 
 
 export default function ToDoList() {
 
-    const [todos, setTodos] = useState<ToDoListType[]>(mockTodos);
+    const [tasks, setTasks] = useState<ToDoListType[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const { currentUser } = useUserStore();
 
     const defaultGap: string = "4";
 
-    const changeStatus = (taskId: number, newStatus: ToDoListType["status"]) => {
-    setTodos(prev =>
-        prev.map(task =>
-            task.id === taskId
-                ? { ...task, status: newStatus }
-                : task
-        )
-    );
+    useEffect(() => {
+        fetchTasks()
+            .then(setTasks)
+            .catch((err: unknown) => {
+            console.error(err);
+            setError("Nie udało się pobrać zadań");
+            })
+            .finally(() => setLoading(false));
+        }, []);
 
-    // TODO: API PATCH /tasks/:id
-};
+
+    const onUpdateTask = async (id: number, update: TaskUpdate) => {
+        try {
+            await updateTask(id, update);   // PATCH
+            const fresh = await fetchTasks(); // GET + mapowanie
+            setTasks(fresh);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+
+    const onAddComment = async (taskId: number, content: string) => {
+        if (!currentUser) {
+            alert("Wybierz użytkownika");
+            return;
+        }
+
+        try {
+            await createComment(taskId, content, currentUser.steam_id);
+
+            // 🔥 KLUCZOWA LINIJKA
+            const freshTasks = await fetchTasks();
+            setTasks(freshTasks);
+        } catch (err) {
+            console.error(err);
+            alert("Nie udało się dodać komentarza");
+        }
+    };
+
+
+
+
+    const onDeleteComment = async (taskId: number, commentId: number) => {
+        const prev = tasks;
+
+        setTasks((tasks) =>
+            tasks.map((t) =>
+            t.id === taskId
+                ? {
+                    ...t,
+                    comments: t.comments.filter((c) => c.id !== commentId),
+                }
+                : t
+            )
+        );
+
+        try {
+            await deleteComment(commentId);
+        } catch {
+            setTasks(prev);
+            alert("Nie udało się usunąć komentarza");
+        }
+    };
+
+
+    const onAddTask = async (data: NewTaskInput) => {
+        if (!currentUser) return alert("Wybierz użytkownika");
+
+        try {
+            const newTask = await createTask({
+            ...data,
+            creatorId: currentUser.steam_id,
+            });
+
+            setTasks((prev) => [newTask, ...prev]);
+        } catch (err) {
+            console.error(err);
+            alert("Nie udało się dodać zadania");
+        }
+    };
+
+        const onDeleteTask = async (id: number) => {
+            // optimistic update
+            const prevTasks = tasks;
+            setTasks((prev) => prev.filter((t) => t.id !== id));
+
+            try {
+                await deleteTask(id);
+            } catch (err) {
+                console.error(err);
+                // rollback
+                setTasks(prevTasks);
+                alert("Nie udało się usunąć zadania");
+            }
+        };
+
+    if (loading) {
+        return <p>Ładowanie zadań…</p>;
+    }
+
+    if (error) {
+        return <p className="text-red-500">{error}</p>;
+    }
+
+
 
     return (
         <Flex direction={{initial: "column", sm: "row"}} gap={defaultGap} justify={"between"} className="h-[70vh] pt-4">
             
+            
             <ToDoColumn
                 title="To Do"
-                tasks={todos.filter(t => t.status === "todo")}
-                onStatusChange={changeStatus}
+                tasks={tasks.filter(t => t.status === "todo")}
+                onUpdateTask={onUpdateTask}
+                onAddComment={onAddComment}
+                onDeleteComment={onDeleteComment}
+                onAddTask={onAddTask}
+                onDeleteTask={onDeleteTask}
             />
 
             <Separator orientation="vertical" size={"4"} />
 
             <ToDoColumn
                 title="In progress"
-                tasks={todos.filter(t => t.status === "in-progress")}
-                onStatusChange={changeStatus}
+                tasks={tasks.filter(t => t.status === "in-progress")}
+                onUpdateTask={onUpdateTask}
+                onAddComment={onAddComment}
+                onDeleteComment={onDeleteComment}
+                onAddTask={onAddTask}
+                onDeleteTask={onDeleteTask}
             />
 
             <Separator orientation="vertical" size={"4"} />
 
             <ToDoColumn
                 title="Done"
-                tasks={todos.filter(t => t.status === "done")}
+                tasks={tasks.filter(t => t.status === "done")}
                 showTag={false}
-                onStatusChange={changeStatus}
+                onUpdateTask={onUpdateTask}
+                onAddComment={onAddComment}
+                onDeleteComment={onDeleteComment}
+                onAddTask={onAddTask}
+                onDeleteTask={onDeleteTask}
             />
         </Flex>
     )

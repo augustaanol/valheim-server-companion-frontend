@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { useServerStore } from "@/store/serverStore";
+import { NavbarUserAvatar } from "./NavbarUserAvatar";
+
 
 
 const pirataOne = Pirata_One({
@@ -61,6 +63,7 @@ export default function Navbar({ titleText }: {titleText: string }) {
                             </Link>
                             );
                         })}
+                        <NavbarUserAvatar />
                     </Flex>
                 </Card>
             </Flex>

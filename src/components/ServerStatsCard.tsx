@@ -9,7 +9,8 @@ type ServerStatsCardProps = {
   showMore?: boolean;
 };
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+
 
 export default function ServerStatsCard({size="large", showMore=false}: ServerStatsCardProps) {
 

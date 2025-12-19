@@ -1,8 +1,8 @@
-interface Comment {
+export interface Comment {
     id: number;
     content: string;
     createdAt: string;
-    authorId: number;
+    authorId: string;
 }
 
 export interface ToDoItem {
@@ -10,8 +10,18 @@ export interface ToDoItem {
     title: string;
     description: string;
     createdAt: string;
-    creatorId: number;
+    creatorId: string;
     status: "todo" | "in-progress" | "done";
     tag: "important" | "normal" | "backlog";
     comments: Comment[];
 }
+
+export type TaskUpdate = Partial<
+  Pick<ToDoItem, "title" | "description" | "status" | "tag">
+>;
+
+export type NewTaskInput = {
+  title: string;
+  description: string;
+  tag: ToDoItem["tag"];
+};
