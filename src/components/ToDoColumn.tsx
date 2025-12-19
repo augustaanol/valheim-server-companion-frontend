@@ -7,6 +7,7 @@ import { getPlayerName } from "@/utils/playersUtils"
 import { useServerStore } from "@/store/serverStore";
 import { useUserStore } from "@/store/useUserStore";
 import { AddTaskDialog } from "@/components/AddTaskDialog";
+import { MessageCircle } from "@deemlol/next-icons";
 
 
 interface ToDoColumnProps {
@@ -60,11 +61,15 @@ export function ToDoColumn({ title, tasks, showTag=true, onUpdateTask, onAddComm
 
     const [editedDescriptions, setEditedDescriptions] = useState<Record<number, string>>({});
 
+    const truncateTitle = (title: string, limit: number = 40) => {
+        return title.length > limit ? title.substring(0, limit) + "..." : title;
+    };
+
 
 
     return (
-        <Flex direction={"column"} align={"start"} gap={"2"} className="w-full lg:w-1/3 px-2">
-            <Flex justify={"between"} className="w-full">
+        <Flex direction={"column"} align={"start"} gap={"2"} className="w-full lg:w-1/3 pl-4">
+            <Flex justify={"between"} className="w-full pr-4">
                 <Heading size={"4"} mb="4">{title}</Heading>
                 {onAddTask && title === "To Do" && (
                     <AddTaskDialog
@@ -74,6 +79,9 @@ export function ToDoColumn({ title, tasks, showTag=true, onUpdateTask, onAddComm
                 )}
             </Flex>
 
+            <ScrollArea scrollbars="vertical">
+            <Flex direction={"column"} gap={"3"} className="pr-4">
+
             {tasks.length === 0 && (
                 <Text as="p">Brak zadań</Text>
             )}
@@ -82,19 +90,40 @@ export function ToDoColumn({ title, tasks, showTag=true, onUpdateTask, onAddComm
                 <Dialog.Root key={task.id}>
                     <ContextMenu.Root>
                         <ContextMenu.Trigger>
-                            <Box className="w-full rounded-2xl hover:outline outline-slate-600 transition-all duration-100 cursor-pointer">
-                                <Dialog.Trigger className="w-full">
-                                    <Card>
-                                        <Flex justify={"between"}>
-                                            <Flex direction={"column"}>
-                                                <Text weight={"medium"} size="2">{task.title}</Text>
-                                                <Text size={"1"} color="gray">{getPlayerName(task.creatorId, AllPlayersList)}, {formatDate(task.createdAt)}</Text>
-                                            </Flex>
-                                            <Flex direction={"column"}>
+                            <Box className="w-full min-w-0 rounded-2xl hover:outline outline-slate-600 transition-all duration-100 cursor-pointer">
+                                <Dialog.Trigger>
+                                    {/* 2. Card musi mieć w-full i resetować domyślne style przycisku triggera */}
+                                    <Card className="w-full min-w-0 overflow-hidden" style={{ textAlign: 'left', display: 'block' }}>
+                                        <Flex gap="3" align="center" className="w-full min-w-0">
+                                            
+                                            {/* 3. Kontener tekstu MUSI mieć min-w-0 oraz flex-1 */}
+                                            <Box className="min-w-0 flex-1">
+                                                <Text 
+                                                    as="div" 
+                                                    weight="medium" 
+                                                    size="3" 
+                                                    className="truncate"
+                                                    style={{ width: '100%', display: 'block' }}
+                                                    title={task.title}
+                                                >
+                                                    {truncateTitle(task.title, 25)}
+                                                </Text>
+                                                <Text as="div" size="1" color="gray" className="truncate">
+                                                    {getPlayerName(task.creatorId, AllPlayersList)}, {formatDate(task.createdAt)}
+                                                </Text>
+                                            </Box>
+
+                                            {/* 4. Prawa strona musi mieć shrink-0, żeby nie zabierać miejsca tekstowi */}
+                                            <Flex direction="column" gap="1" align="end" className="shrink-0">
                                                 <Badge hidden={!showTag} size="1" color={task.tag === "important" ? "red" : task.tag === "normal" ? "blue" : "gray"}>
-                                                    <Text size={"1"}>{task.tag}</Text>
+                                                    <Text size="1">{task.tag}</Text>
+                                                </Badge>
+                                                <Badge>
+                                                    <Text size="1">{task.comments.length}</Text>
+                                                    <MessageCircle size={13} color="#B0B4BA" />
                                                 </Badge>
                                             </Flex>
+
                                         </Flex>
                                     </Card>
                                 </Dialog.Trigger>
@@ -349,6 +378,8 @@ export function ToDoColumn({ title, tasks, showTag=true, onUpdateTask, onAddComm
                     </Dialog.Content>
                 </Dialog.Root>
             ))}
+            </Flex>
+            </ScrollArea>
         </Flex>
     );
 }

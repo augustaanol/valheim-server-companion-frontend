@@ -90,35 +90,34 @@ export default function ToDoList() {
 
 
     const onAddTask = async (data: NewTaskInput) => {
-        if (!currentUser) return alert("Wybierz użytkownika");
-
         try {
-            const newTask = await createTask({
+            const createdTask = await createTask({
             ...data,
-            creatorId: currentUser.steam_id,
+            creatorId: currentUser!.steam_id,
             });
 
-            setTasks((prev) => [newTask, ...prev]);
+            // 🔥 używamy OBIEKTU Z BACKENDU
+            setTasks(prev => [createdTask, ...prev]);
+
         } catch (err) {
             console.error(err);
-            alert("Nie udało się dodać zadania");
         }
     };
 
-        const onDeleteTask = async (id: number) => {
-            // optimistic update
-            const prevTasks = tasks;
-            setTasks((prev) => prev.filter((t) => t.id !== id));
+    const onDeleteTask = async (id: number) => {
+        // optimistic update
+        const prevTasks = tasks;
+        setTasks((prev) => prev.filter((t) => t.id !== id));
 
-            try {
-                await deleteTask(id);
-            } catch (err) {
-                console.error(err);
-                // rollback
-                setTasks(prevTasks);
-                alert("Nie udało się usunąć zadania");
-            }
-        };
+        try {
+            await deleteTask(id);
+        } catch (err) {
+            console.error(err);
+            // rollback
+            setTasks(prevTasks);
+            alert("Nie udało się usunąć zadania");
+        }
+    };
 
     if (loading) {
         return <p>Ładowanie zadań…</p>;
@@ -131,7 +130,7 @@ export default function ToDoList() {
 
 
     return (
-        <Flex direction={{initial: "column", sm: "row"}} gap={defaultGap} justify={"between"} className="h-[70vh] pt-4">
+        <Flex direction={{initial: "column", sm: "row"}} gap={"2"} justify={"between"} className="h-[70vh] pt-4">
             
             
             <ToDoColumn
