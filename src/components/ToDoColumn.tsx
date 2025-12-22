@@ -107,9 +107,9 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
 
 
     return (
-        <Flex direction={"column"} align={"start"} gap={"2"} className="w-full lg:w-1/3 ml-2">
-            <Flex justify={"between"} className="w-full mr-4">
-                <Heading size={"4"} mb="4">{title}</Heading>
+        <Flex direction={"column"} align={"start"} gap={{ initial: "1", sm: "2" }} className="w-full lg:w-1/3 ml-1">
+            <Flex justify={"between"} align={"center"} className="w-full pr-4">
+                <Heading size={"5"} ml={"3"}>{title}</Heading>
                 {onAddTask && title === "To Do" && (
                     <AddTaskDialog
                         onAdd={onAddTask}
@@ -124,7 +124,7 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
                 direction="column"
                 gap="3"
                 className={`
-                    p-2 mr-3 rounded-xl transition-all duration-200 h-full
+                    p-2 mr-1 rounded-xl transition-all duration-200 h-full
                     ${isOver 
                     ? "bg-slate-500/20 transition-all" 
                     : ""

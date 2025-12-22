@@ -50,8 +50,8 @@ export function AddTaskDialog({ onAdd, disabled }: Props) {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button disabled={disabled} variant="ghost">
-          <PlusIcon />
+        <Button size={"2"} disabled={disabled} variant="ghost">
+          <PlusIcon fontSize={"3"}/>
         </Button>
       </Dialog.Trigger>
 
