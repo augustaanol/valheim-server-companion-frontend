@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, DataList, Text, Flex } from "@radix-ui/themes";
+import { Card, DataList, Text, Flex, Heading } from "@radix-ui/themes";
 
 type Resources = {
   cpu_percent?: number;
@@ -50,7 +50,8 @@ export default function ServerResourcesCard() {
 
   return (
     <Card className="h-full">
-      <Flex className="w-full h-full p-3" direction={"column"}>
+      <Flex className="w-full h-full p-3" direction={"column"} gap={"4"}>
+        <Heading as="h2">Zużycie zasobów</Heading>
         <DataList.Root>
 
           {/* CPU */}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Card, ScrollArea, Heading, Text, Flex } from "@radix-ui/themes";
+import { DownloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 type Mod = {
@@ -11,6 +12,7 @@ type Mod = {
   author: string;
   latest_version: string;
   url: string;
+  download_url: string;
 };
 
 export default function ModListCard() {
@@ -47,13 +49,18 @@ export default function ModListCard() {
             <Flex direction="column" gap="0">
                 {modsList ? (
                     modsList.map((mod, index) => (
-                        <Flex key={index} gap={"2"} width={"90%"} align={"center"} className="hover:bg-gray-600 rounded-2xl px-3 py-2">
+                        <Flex key={index} gap={"2"} width={"95%"} align={"center"}>
                             {mod.matched ? (
-                                <Link href={mod.url} target="_blank" className="w-full">
-                                <Text className="font-medium">{mod.mod_name} <span className="text-gray-400 font-light text-sm"> by {mod.author}</span></Text>
-                                </Link>
+                                <Flex gap={"2"} align={"center"} className="hover:bg-gray-600 rounded-2xl px-3 py-2 w-full">
+                                    <Link href={mod.url} target="_blank" className="w-full">
+                                        <Text className="font-medium">{mod.mod_name} <span className="text-gray-400 font-light text-sm"> by {mod.author}</span></Text>
+                                    </Link>
+                                    <Link href={mod.download_url} target="_blank" className="hover:bg-slate-800 rounded-2xl p-2"><DownloadIcon className="w-4 h-4" /></Link>
+                                </Flex>
                             ) : (
-                                <Text>{mod.dll_name}</Text>
+                                <Flex align={"center"} className="hover:bg-gray-600 rounded-2xl px-3 py-2 w-full">
+                                    <Text>{mod.dll_name}</Text>
+                                </Flex>
                             )}
                         </Flex>
                     ))
