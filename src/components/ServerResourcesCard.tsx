@@ -49,8 +49,8 @@ export default function ServerResourcesCard() {
   };
 
   return (
-    <Card>
-      <Flex className="w-full">
+    <Card className="h-full">
+      <Flex className="w-full h-full p-3" direction={"column"}>
         <DataList.Root>
 
           {/* CPU */}
