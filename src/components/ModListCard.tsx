@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Card, ScrollArea, Heading, Text, Flex } from "@radix-ui/themes";
-import { DownloadIcon } from "@radix-ui/react-icons";
+import { useEffect, useState, useCallback } from "react";
+import { Card, ScrollArea, Heading, Text, Flex, Button } from "@radix-ui/themes";
+import { DownloadIcon, SymbolIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 type Mod = {
@@ -17,34 +17,60 @@ type Mod = {
 
 export default function ModListCard() {
   const [modsList, setModsList] = useState<Mod[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const BACKEND_URL =
     process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
-  useEffect(() => {
-    const fetchMods = async () => {
-      try {
-        const response = await fetch(
-          `${BACKEND_URL}/api/mods-list`
-        );
-        if (!response.ok) return;
-
-        const data = await response.json();
-        setModsList(data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    fetchMods();
-    const interval = setInterval(fetchMods, 3600000);
-    return () => clearInterval(interval);
+  const fetchMods = useCallback(async () => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/mods/`);
+      if (!response.ok) return;
+      const data = await response.json();
+      setModsList(data);
+    } catch (e) {
+      console.error(e);
+    }
   }, [BACKEND_URL]);
+
+  const handleRefresh = async () => {
+    try {
+      setLoading(true);
+
+      await fetch(`${BACKEND_URL}/api/mods/refresh`, {
+        method: "POST",
+      });
+
+      await fetchMods(); // po odświeżeniu ściągamy nowe dane
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMods();
+    const interval = setInterval(fetchMods, 60000);
+    return () => clearInterval(interval);
+  }, [fetchMods]);
 
   return (
     <Card>
       <Flex className="w-full p-3" direction={"column"} gap={"3"}>
-        <Heading as="h2">Lista modów</Heading>
+        <Flex justify={"between"} className="pr-3">
+          <Heading as="h2">Lista modów</Heading>
+          <Button
+            variant="ghost"
+            onClick={handleRefresh}
+            disabled={loading}
+          >
+            <SymbolIcon
+              className={loading ? "animate-spin" : ""}
+            />
+          </Button>
+        </Flex>
+        
         <ScrollArea type="always" scrollbars="vertical" style={{ height: 180 }}>
             <Flex direction="column" gap="0">
                 {modsList ? (
