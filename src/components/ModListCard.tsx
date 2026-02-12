@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Card, ScrollArea, Heading, Text, Flex, Button } from "@radix-ui/themes";
+import { Card, ScrollArea, Heading, Text, Flex, Button, Tooltip } from "@radix-ui/themes";
 import { DownloadIcon, SymbolIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
@@ -60,15 +60,17 @@ export default function ModListCard() {
       <Flex className="w-full p-3" direction={"column"} gap={"3"}>
         <Flex justify={"between"} className="pr-3">
           <Heading as="h2">Lista modów</Heading>
-          <Button
-            variant="ghost"
-            onClick={handleRefresh}
-            disabled={loading}
-          >
-            <SymbolIcon
-              className={loading ? "animate-spin" : ""}
-            />
-          </Button>
+          <Tooltip content="Aktualizuje bazę modów z Thunderstore oraz listę modów na serwerze">
+            <Button
+              variant="ghost"
+              onClick={handleRefresh}
+              disabled={loading}
+            >
+              <SymbolIcon
+                className={loading ? "animate-spin" : ""}
+              />
+            </Button>
+          </Tooltip>
         </Flex>
         
         <ScrollArea type="always" scrollbars="vertical" style={{ height: 180 }}>
