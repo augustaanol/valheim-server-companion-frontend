@@ -35,7 +35,7 @@ export function NavbarUserAvatar() {
       </DropdownMenu.Trigger>
 
       {/* DROPDOWN */}
-      <DropdownMenu.Content align="end">
+      <DropdownMenu.Content>
         {AllPlayersList.length === 0 && (
           <DropdownMenu.Item disabled>
             Brak graczy
