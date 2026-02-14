@@ -51,7 +51,7 @@ export default function RootLayout({
               <main 
                 className="flex-1 transition-all duration-300"
               >
-                <div className="mx-auto 2xl:w-4/5 xl:w-19/20 w-[92%] flex flex-col mb-8">
+                <div className="mx-auto xl:w-19/20 w-[92%] flex flex-col mb-8">
                   <Navbar titleText="ADiheim server companion" titleTextMobile="ADiheim SC" />
                   {children}
                 </div>

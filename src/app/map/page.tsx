@@ -9,7 +9,7 @@ export default function Map() {
     return (
         <Flex direction="column" gap={defaultGap}> 
             <Card>    
-            <iframe src="https://valheim-map.world/index.html?seed=WHDP6669JP&ver=0.221.4&offset=0%2C0&zoom=0.6" className="w-full h-[75vh]"></iframe>
+            <iframe src="https://valheim-map.world/index.html?seed=WHDP6669JP&ver=0.221.4&offset=0%2C0&zoom=0.6" className="w-full h-[80vh]"></iframe>
             </Card>  
         </Flex>
     )

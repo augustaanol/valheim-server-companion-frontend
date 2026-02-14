@@ -10,11 +10,11 @@ export default function CommandsPage() {
     return (
         <Flex direction="column" gap={defaultGap}>
             <Flex direction={{initial: "column", md: "row"}} gap={defaultGap}>
-                <Flex className="w-full lg-w-1/2 min-h-30">
+                <Flex className="w-full lg-w-1/2 2xl:w-1/3 min-h-30">
                     <TeleportCard />
                 </Flex>
-                <Flex className="w-full lg-w-1/2 min-h-30">
-                    
+                <Flex className="w-full lg-w-1/2 2xl:w-1/3 min-h-30">
+
                 </Flex>
             </Flex>
         </Flex>
