@@ -15,10 +15,10 @@ import { Separator } from "./ui/separator";
 
 import { useServerStore } from "@/store/serverStore";
 
-import { Text, Flex, IconButton } from "@radix-ui/themes"
+import { Text, Flex, IconButton, Tooltip } from "@radix-ui/themes"
 import { NavbarUserAvatar } from "./NavbarUserAvatar";
 import { useUserStore } from "@/store/useUserStore";
-import { LayoutDashboard, PanelLeft, ChartColumn, Terminal, Server, Package, Settings, Wrench, ListCheck, ChartNoAxesColumn } from "lucide-react";
+import { LayoutDashboard, PanelLeft, ChartColumn, Terminal, Server, Package, Settings, Wrench, ListCheck, ChartNoAxesColumn, Map } from "lucide-react";
 
 const navData = [
     {
@@ -60,6 +60,13 @@ const navData = [
           icon: ChartColumn,
           onlyAdminVisible: false,
           serverOfflineVisible: true,
+        },
+        {
+          title: "Map",
+          url: "/map",
+          icon: Map,
+          onlyAdminVisible: false,
+          serverOfflineVisible: false,
         },
         {
           title: "Commands",
@@ -187,7 +194,7 @@ export function AppSidebar() {
               </Text>
               )}
 
-              <Flex direction="column" className="px-1">
+              <Flex direction="column" className="px-0">
               {section.items.map(item => {
                 const isActive = pathname === item.url
                 return (
@@ -198,9 +205,11 @@ export function AppSidebar() {
                           <Text size="2" className={navItemsDefaultColor}>{item.title}</Text>
                         </Flex>
                       ) : (
-                        <Flex className={isActive ? "items-center gap-3 p-2 my-0.5 rounded-xl bg-white/20 transition" : "items-center gap-3 p-2 my-0.5 rounded-xl hover:bg-white/20 transition"}>
-                        <item.icon size={18} className="text-slate-200"/>
-                        </Flex>
+                        <Tooltip content={item.title}>
+                          <Flex className={isActive ? "items-center gap-3 p-2 my-0.5 rounded-xl bg-white/20 transition" : "items-center gap-3 p-2 my-0.5 rounded-xl hover:bg-white/20 transition"}>
+                            <item.icon size={18} className="text-slate-200"/>
+                          </Flex>
+                        </Tooltip>
                       )}
                   </Link>
               )})}

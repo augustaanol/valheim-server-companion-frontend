@@ -80,7 +80,7 @@ export default function ModListCard() {
                     modsList.map((mod, index) => (
                         <Flex key={index} gap={"2"} width={"95%"} align={"center"}>
                             {mod.matched ? (
-                                <Flex gap={"2"} justify={"between"} align={"center"} className="hover:bg-gray-600 rounded-2xl px-5 py-2 w-full">
+                                <Flex gap={"2"} justify={"between"} align={"center"} className="hover:bg-gray-950/20 border-transparent hover:border-gray-300 rounded-2xl px-5 py-2 w-full">
                                     
                                     <Text className="font-medium">{mod.mod_name} <span className="text-gray-400 font-light text-sm"> by {mod.author}</span></Text>
                                     

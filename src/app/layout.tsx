@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="pl">
       <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-cover bg-center bg-no-repeat`}
-          style={{ backgroundImage: "url('/images/background.jpg')" }}
+          style={{ backgroundImage: "url('/images/background.webp')" }}
         >
         <ServerPoller />
         <Theme 
@@ -51,7 +51,7 @@ export default function RootLayout({
               <main 
                 className="flex-1 transition-all duration-300"
               >
-                <div className="mx-auto 2xl:w-4/5 xl:w-9/10 w-[92%] flex flex-col mb-8">
+                <div className="mx-auto 2xl:w-4/5 xl:w-19/20 w-[92%] flex flex-col mb-8">
                   <Navbar titleText="ADiheim server companion" titleTextMobile="ADiheim SC" />
                   {children}
                 </div>
