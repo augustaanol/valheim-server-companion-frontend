@@ -57,7 +57,7 @@ export default function ServerStatsCard({size="large", showMore=false}: ServerSt
         {stats.map((stat) => (
           <Card
             key={stat.name}
-            className={size==="large" ? "w-1/3 md:w-1/4 lg:w-1/6 2xl:w-1/10 aspect-square flex items-center justify-center" : "w-1/4 md:w-1/5 lg:w-1/10 2xl:w-1/12 aspect-square flex items-center justify-center"}
+            className={size==="large" ? "w-1/3 md:w-1/4 lg:w-1/6 2xl:w-1/15 aspect-square flex items-center justify-center" : "w-1/4 md:w-1/5 lg:w-1/10 2xl:w-1/12 aspect-square flex items-center justify-center"}
           >
             <Flex
               direction="column"

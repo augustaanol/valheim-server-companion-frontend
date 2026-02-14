@@ -187,7 +187,7 @@ function Sidebar({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-zinc-900/50 backdrop-blur-xl text-zinc-100 border-zinc-700 w-(--sidebar-width) p-0 [&>button]:hidden"
+          className="bg-zinc-900/50 backdrop-blur-xl text-zinc-100 border-zinc-700 w-(--sidebar-width) p-0"
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,

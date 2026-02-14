@@ -127,7 +127,6 @@ export function AppSidebar() {
   const pathname = usePathname()
 
   const appVersion = process.env.NEXT_PUBLIC_APP_VERSION;
-  const navItemsDefaultColor = "text-zinc-300"
 
   const { serverActive } = useServerStore();
   
@@ -162,12 +161,13 @@ export function AppSidebar() {
                   variant="ghost"
                   radius="large"
               >
-                  <Settings size={18} strokeWidth={1}/>
+                  <Settings size={18} strokeWidth={1} className="text-zinc-100" />
               </IconButton>
             )}
             { !isCollapsed && (
             <Text size={"1"} className="text-zinc-400">{appVersion}</Text>
             )}
+            <div className="hidden md:block">
             <IconButton
                 variant="ghost"
                 onClick={toggleSidebar}
@@ -175,6 +175,7 @@ export function AppSidebar() {
             >
                 <PanelLeft size={22} strokeWidth={1}/>
             </IconButton>
+            </div>
           </Flex>
           <Separator />
       </SidebarHeader>
@@ -186,9 +187,9 @@ export function AppSidebar() {
               
               {!isCollapsed && (
               <Text
-                  size="3"
-                  weight="bold"
-                  className="pb-0.7 pt-1"
+                  size="2"
+                  weight="light"
+                  className="pb-1 pt-1 text-zinc-300"
               >
                   {section.title}
               </Text>
@@ -201,8 +202,8 @@ export function AppSidebar() {
                   <Link key={item.title} href={item.url}>    
                       {!isCollapsed ? (
                         <Flex className={isActive ? "items-center px-4 gap-3 py-2 md:py-[0.3em] md:my-0.5 rounded-xl bg-white/10 transition" : "items-center md:my-0.5 px-4 gap-3 py-2 md:py-[0.3em] rounded-xl hover:bg-white/10 transition"}>
-                          <item.icon size={12} className={navItemsDefaultColor}/>
-                          <Text size="2" className={navItemsDefaultColor}>{item.title}</Text>
+                          <item.icon size={12} className="text-zinc-100" />
+                          <Text size="2" className="text-zinc-100">{item.title}</Text>
                         </Flex>
                       ) : (
                         <Tooltip content={item.title}>
