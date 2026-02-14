@@ -189,7 +189,7 @@ export default function ToDoList() {
             sensors={sensors}
         >
 
-        <Flex direction={{initial: "column", sm: "row"}} gap={"2"} justify={"between"} className="h-[70vh] pt-4">
+        <Flex direction={{initial: "column", sm: "row"}} gap={"2"} justify={"between"} className="md:h-[75vh] pt-4">
             
             
             <ToDoColumn
@@ -203,7 +203,9 @@ export default function ToDoList() {
                 onDeleteTask={onDeleteTask}
             />
 
-            <Separator orientation="vertical" size={"4"} />
+
+            <Separator orientation={{initial: "horizontal", md: "vertical"}} size="4" className="my-2 md:my-0" />
+
 
             <ToDoColumn
                 title="In progress"
@@ -215,8 +217,8 @@ export default function ToDoList() {
                 onAddTask={onAddTask}
                 onDeleteTask={onDeleteTask}
             />
-
-            <Separator orientation="vertical" size={"4"} />
+            
+            <Separator orientation={{initial: "horizontal", md: "vertical"}} size="4" className="my-2 md:my-0" />
 
             <ToDoColumn
                 title="Done"

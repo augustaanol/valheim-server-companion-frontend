@@ -51,17 +51,17 @@ export default function ServerResourcesCard() {
   return (
     <Card className="h-full">
       <Flex className="w-full h-full p-3" direction={"column"} gap={"4"}>
-        <Heading as="h2">Zużycie zasobów</Heading>
+        <Heading as="h2">Server resources</Heading>
         <DataList.Root>
 
           {/* CPU */}
           <DataList.Item align="center">
-            <DataList.Label minWidth="140px">Zużycie CPU</DataList.Label>
+            <DataList.Label minWidth="140px">CPU usage</DataList.Label>
             <DataList.Value>
               <Text>
                 {resources?.cpu_percent !== undefined
                   ? `${resources.cpu_percent.toFixed(2)}%`
-                  : "Brak danych"}
+                  : "No data"}
               </Text>
             </DataList.Value>
           </DataList.Item>
@@ -76,19 +76,19 @@ export default function ServerResourcesCard() {
                   ? `${formatBytes(resources.memory_usage)} / ${formatBytes(
                       resources.memory_limit
                     )}`
-                  : "Brak danych"}
+                  : "No data"}
               </Text>
             </DataList.Value>
           </DataList.Item>
 
           {/* RAM percent */}
           <DataList.Item align="center">
-            <DataList.Label minWidth="140px">Zużycie RAM %</DataList.Label>
+            <DataList.Label minWidth="140px">RAM usage</DataList.Label>
             <DataList.Value>
               <Text>
                 {resources?.memory_percent !== undefined
                   ? `${resources.memory_percent.toFixed(2)}%`
-                  : "Brak danych"}
+                  : "No data"}
               </Text>
             </DataList.Value>
           </DataList.Item>

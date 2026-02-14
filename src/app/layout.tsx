@@ -3,11 +3,12 @@ import React from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
-import { Theme, Flex } from "@radix-ui/themes";
+import { Theme } from "@radix-ui/themes";
 import Navbar from "@/components/navbar";
 import ServerPoller from "@/components/ServerPoller";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import { Flex } from "@radix-ui/themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,8 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-cover bg-center bg-no-repeat`}
+          style={{ backgroundImage: "url('/images/background.jpg')" }}
         >
         <ServerPoller />
         <Theme 
@@ -41,24 +43,20 @@ export default function RootLayout({
           accentColor="gray" 
           radius="full" 
           grayColor="mauve"
+          style={{ background: "transparent" }}
           >
             <SidebarProvider>
+              <Flex className="w-full h-screen">
               <AppSidebar />
               <main 
                 className="flex-1 transition-all duration-300"
-                style={{
-                  backgroundImage: "url('/images/background.jpg')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  minHeight: "100vh",
-                }}
               >
-                <div className="mx-auto 2xl:w-4/5 xl:w-9/10 w-[92%] flex flex-col min-h-screen mb-8">
-                  <Navbar titleText="ADiheim server companion"/>
+                <div className="mx-auto 2xl:w-4/5 xl:w-9/10 w-[92%] flex flex-col mb-8">
+                  <Navbar titleText="ADiheim server companion" titleTextMobile="ADiheim SC" />
                   {children}
                 </div>
               </main>
+              </Flex>
             </SidebarProvider>
         </Theme>
       </body>

@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { Card, ScrollArea, Heading, Text, Flex, Button, Tooltip } from "@radix-ui/themes";
 import { DownloadIcon, SymbolIcon } from "@radix-ui/react-icons";
+import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 type Mod = {
@@ -59,7 +60,7 @@ export default function ModListCard() {
     <Card>
       <Flex className="w-full p-3" direction={"column"} gap={"3"}>
         <Flex justify={"between"} className="pr-3">
-          <Heading as="h2">Lista modów</Heading>
+          <Heading as="h2">Installed mods</Heading>
           <Tooltip content="Aktualizuje bazę modów z Thunderstore oraz listę modów na serwerze">
             <Button
               variant="ghost"
@@ -73,17 +74,21 @@ export default function ModListCard() {
           </Tooltip>
         </Flex>
         
-        <ScrollArea type="always" scrollbars="vertical" style={{ height: 180 }}>
+        <ScrollArea type="always" scrollbars="vertical" style={{ height: "65vh" }}>
             <Flex direction="column" gap="0">
                 {modsList ? (
                     modsList.map((mod, index) => (
                         <Flex key={index} gap={"2"} width={"95%"} align={"center"}>
                             {mod.matched ? (
-                                <Flex gap={"2"} align={"center"} className="hover:bg-gray-600 rounded-2xl px-3 py-2 w-full">
-                                    <Link href={mod.url} target="_blank" className="w-full">
-                                        <Text className="font-medium">{mod.mod_name} <span className="text-gray-400 font-light text-sm"> by {mod.author}</span></Text>
-                                    </Link>
-                                    <Link href={mod.download_url} target="_blank" className="hover:bg-slate-800 rounded-2xl p-2"><DownloadIcon className="w-4 h-4" /></Link>
+                                <Flex gap={"2"} justify={"between"} align={"center"} className="hover:bg-gray-600 rounded-2xl px-5 py-2 w-full">
+                                    
+                                    <Text className="font-medium">{mod.mod_name} <span className="text-gray-400 font-light text-sm"> by {mod.author}</span></Text>
+                                    
+                                    <Flex gap={"3"}>
+                                      <Link href={mod.url} target="_blank" className="hover:bg-slate-800 rounded-2xl p-2"><ExternalLink className="w-4 h-4" /></Link>
+                                      <Link href={mod.download_url} target="_blank" className="hover:bg-slate-800 rounded-2xl p-2"><DownloadIcon className="w-4 h-4" /></Link>
+                                    </Flex>
+                                    
                                 </Flex>
                             ) : (
                                 <Flex align={"center"} className="hover:bg-gray-600 rounded-2xl px-3 py-2 w-full">

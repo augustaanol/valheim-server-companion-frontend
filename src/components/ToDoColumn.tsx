@@ -134,7 +134,7 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
 
 
             {tasks.length === 0 && (
-                <Text as="p">Brak zadań</Text>
+                <Text as="p" size={"2"} className="text-zinc-300 pl-1">List empty</Text>
             )}
 
             {tasks.map(task => (
@@ -187,12 +187,12 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
                             <ContextMenu.Item
                                 color="red"
                                 onSelect={() => {
-                                    if (confirm("Na pewno usunąć to zadanie?")) {
+                                    if (confirm("Are you sure you want to delete this task?")) {
                                         onDeleteTask(task.id);
                                     }
                                 }}
                             >
-                            Usuń zadanie
+                            Delete task
                             </ContextMenu.Item>
                         </ContextMenu.Content>
                     </ContextMenu.Root>
@@ -287,11 +287,11 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
                                 <div className="flex flex-col items-start shrink-0 gap-5">
                                     <DataList.Root size="1">
                                         <DataList.Item>
-                                            <DataList.Label minWidth="80px">Utworzone</DataList.Label>
+                                            <DataList.Label minWidth="80px">Created at</DataList.Label>
                                             <DataList.Value>{formatDate(task.createdAt)}</DataList.Value>
                                         </DataList.Item>
                                         <DataList.Item>
-                                            <DataList.Label minWidth="80px">Autor</DataList.Label>
+                                            <DataList.Label minWidth="80px">Author</DataList.Label>
                                             <DataList.Value>{getPlayerName(task.creatorId, AllPlayersList)}</DataList.Value>
                                         </DataList.Item>
                                         <DataList.Item>
@@ -317,7 +317,7 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
                                     <Flex justify={"between"} className="w-full">
                                         <Dialog.Close>
                                             <Button variant="surface" color="gray" size="2">
-                                                Zamknij
+                                                Close
                                             </Button>
                                         </Dialog.Close>
                                         <Button 
@@ -329,7 +329,7 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
                                                 }
                                             }}
                                         >
-                                            Usuń zadanie
+                                            Delete task
                                         </Button>
                                     </Flex>
                                 </div>
@@ -346,7 +346,7 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
                                         
                                             {task.comments.length === 0 ? (
                                                 <Flex justify="center" align="center" className="h-full text-gray-400">
-                                                    <Text size="2">Brak komentarzy</Text>
+                                                    <Text size="2">No comments</Text>
                                                 </Flex>
                                             ) : (
                                                 task.comments.map((comment) => (
@@ -373,7 +373,7 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
                                                                     onDeleteComment(task.id, comment.id)
                                                                 }
                                                             >
-                                                                Usuń komentarz
+                                                                Delete comment
                                                             </ContextMenu.Item>
                                                         </ContextMenu.Content>
                                                     </ContextMenu.Root>
@@ -388,8 +388,8 @@ export function ToDoColumn({ title, tasks, status, showTag=true, onUpdateTask, o
                                         className="flex-1"
                                         placeholder={
                                             currentUser
-                                            ? "Dodaj komentarz..."
-                                            : "Wybierz użytkownika, aby dodać komentarz"
+                                            ? "Write comment..."
+                                            : "Choose active user to write comment"
                                         }
                                         size="2"
                                         value={newComment[task.id] ?? ""}

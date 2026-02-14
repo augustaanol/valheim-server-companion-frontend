@@ -98,7 +98,7 @@ export default function TeleportCard() {
                                             {player.name}
                                         </Select.Item>
                                     ))}
-                                    <Select.Item value="coordinates">Koordynaty</Select.Item>
+                                    <Select.Item value="coordinates">Coordinates</Select.Item>
                                 </Select.Content>
                             </Select.Root>
 
@@ -127,14 +127,14 @@ export default function TeleportCard() {
                                 (teleportTarget === "coordinates" && !customCoordinates.trim())
                             }
                         >
-                            Teleportuj!
+                            Teleport!
                         </Button>
                     </Flex>
                 )}
 
                 {!serverActive && (
                     <Text size="2" color="gray">
-                        Serwer offline
+                        Server offline
                     </Text>
                 )}
             </Flex>

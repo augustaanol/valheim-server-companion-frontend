@@ -94,12 +94,12 @@ export function ServerLogCard() {
     <Card>
       <Flex direction="column" gap="2" className="p-4">
         <Heading as="h2" mb="2" trim="start">
-          Logi
+          Server logs
         </Heading>
         <ScrollArea
           type="always"
           scrollbars="vertical"
-          style={{ height: 300 }}
+          style={{ maxHeight: 450 }}
           ref={scrollAreaRef}
         >
           <Flex direction="column" gap="1" className="p-1 pr-3">

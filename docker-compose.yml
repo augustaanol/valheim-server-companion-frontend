@@ -13,6 +13,7 @@ services:
     environment:
       # Next.js env
       NEXT_PUBLIC_BACKEND_URL: "${NEXT_PUBLIC_BACKEND_URL}"
+      NEXT_PUBLIC_APP_VERSION: "${NEXT_PUBLIC_APP_VERSION}"
 
       # reszta zmiennych przekazywana do API routes Next.js
       PORTAINER_URL: "${PORTAINER_URL}"

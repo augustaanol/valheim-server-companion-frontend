@@ -56,18 +56,18 @@ export function AddTaskDialog({ onAdd, disabled }: Props) {
       </Dialog.Trigger>
 
       <Dialog.Content maxWidth="450px">
-        <Dialog.Title>Nowe zadanie</Dialog.Title>
+        <Dialog.Title>Create task</Dialog.Title>
 
         <Flex direction="column" gap="3" mt="4">
           <TextField.Root
-            placeholder="Tytuł zadania"
+            placeholder="Task title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             autoFocus
           />
 
           <TextArea
-            placeholder="Opis (opcjonalnie)"
+            placeholder="Task description (optional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             resize="vertical"
@@ -96,11 +96,11 @@ export function AddTaskDialog({ onAdd, disabled }: Props) {
           <Flex justify="end" gap="2" mt="4">
             <Dialog.Close>
               <Button variant="soft" color="gray">
-                Anuluj
+                Cancel
               </Button>
             </Dialog.Close>
             <Button onClick={submit}>
-              Dodaj
+              Create
             </Button>
           </Flex>
         </Flex>

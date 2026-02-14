@@ -51,7 +51,7 @@ export default function ServerControlCard() {
           <HoverCard.Root>
             <HoverCard.Trigger>
               <Heading as="h2" style={{ cursor: "default" }}>
-                Status serwera
+                Server status
               </Heading>
             </HoverCard.Trigger>
             <HoverCard.Content side="top" align="center">
@@ -95,7 +95,7 @@ export default function ServerControlCard() {
         {/* GRACZE ONLINE */}
         {serverActive && (
           <Flex align="center" gap="2" className="mt-2">
-            <Text weight="bold">Gracze online:</Text>
+            <Text weight="bold">Online players:</Text>
             <Badge color={playerCount && playerCount > 0 ? "green" : "gray"}>
               {playerCount ?? 0}
             </Badge>
