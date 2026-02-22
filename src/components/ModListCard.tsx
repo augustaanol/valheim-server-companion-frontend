@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Card, ScrollArea, Heading, Text, Flex, Button, Tooltip } from "@radix-ui/themes";
+import { Card, ScrollArea, Heading, Text, Flex, Button, Tooltip, Table } from "@radix-ui/themes";
 import { DownloadIcon, SymbolIcon } from "@radix-ui/react-icons";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -14,6 +14,7 @@ type Mod = {
   latest_version: string;
   url: string;
   download_url: string;
+  updatedAt: Date;
 };
 
 export default function ModListCard() {
@@ -61,7 +62,7 @@ export default function ModListCard() {
       <Flex className="w-full p-3" direction={"column"} gap={"3"}>
         <Flex justify={"between"} className="pr-3">
           <Heading as="h2">Installed mods</Heading>
-          <Tooltip content="Aktualizuje bazę modów z Thunderstore oraz listę modów na serwerze">
+          <Tooltip content="Sync server mods with Thunderstore.io">
             <Button
               variant="ghost"
               onClick={handleRefresh}
@@ -74,8 +75,32 @@ export default function ModListCard() {
           </Tooltip>
         </Flex>
         
-        <ScrollArea type="always" scrollbars="vertical" style={{ height: "65vh" }}>
-            <Flex direction="column" gap="0">
+        <ScrollArea type="always" scrollbars="vertical" style={{ height: "65vh", paddingRight: "2em" }}>
+          <Table.Root>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeaderCell style={{ width: "40%" }}><Text size={"3"}>Mod name</Text></Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell justify={"end"}><Text size={"3"}>Author</Text></Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell justify={"center"}><Text size={"3"}>Latest version</Text></Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell justify={"center"}><Text size={"3"}>Website</Text></Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell justify={"center"}><Text size={"3"}>Download</Text></Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {modsList ? (
+                    modsList.map((mod, index) => (
+                      <Table.Row key={index} align={"center"}>
+                        <Table.RowHeaderCell><Text weight={"bold"}>{mod.mod_name}</Text></Table.RowHeaderCell>
+                        <Table.Cell justify={"end"}>{mod.author}</Table.Cell>
+                        <Table.Cell justify={"center"}>{mod.latest_version}</Table.Cell>
+                        <Table.Cell justify={"center"}><Link href={mod.url} target="_blank" className="inline-flex hover:bg-slate-800 rounded-full p-3"><ExternalLink className="w-4 h-4" /></Link></Table.Cell>
+                        <Table.Cell justify={"center"}><Link href={mod.download_url} target="_blank" className="inline-flex hover:bg-slate-800 rounded-full p-3"><DownloadIcon className="w-4 h-4" /></Link></Table.Cell>
+                      </Table.Row>
+                    ))
+                  ):<Text>Brak modów do wyświetlenia</Text>}
+            </Table.Body>
+          </Table.Root>
+            {/* <Flex direction="column" gap="0">
                 {modsList ? (
                     modsList.map((mod, index) => (
                         <Flex key={index} gap={"2"} width={"95%"} align={"center"}>
@@ -84,7 +109,8 @@ export default function ModListCard() {
                                     
                                     <Text className="font-medium">{mod.mod_name} <span className="text-gray-400 font-light text-sm"> by {mod.author}</span></Text>
                                     
-                                    <Flex gap={"3"}>
+                                    <Flex gap={"4"} justify={"end"} align={"center"}>
+                                      <Text size={"1"} className="text-slate-400">{mod.latest_version}</Text>
                                       <Link href={mod.url} target="_blank" className="hover:bg-slate-800 rounded-2xl p-2"><ExternalLink className="w-4 h-4" /></Link>
                                       <Link href={mod.download_url} target="_blank" className="hover:bg-slate-800 rounded-2xl p-2"><DownloadIcon className="w-4 h-4" /></Link>
                                     </Flex>
@@ -100,7 +126,7 @@ export default function ModListCard() {
                 ) : (
                     <Text>Ładowanie...</Text>
                 )}
-            </Flex>
+            </Flex> */}
         </ScrollArea>
       </Flex>
     </Card>

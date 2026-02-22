@@ -66,7 +66,7 @@ const navData = [
           url: "/map",
           icon: Map,
           onlyAdminVisible: false,
-          serverOfflineVisible: false,
+          serverOfflineVisible: true,
         },
         {
           title: "Commands",
@@ -126,8 +126,6 @@ export function AppSidebar() {
 
   const pathname = usePathname()
 
-  const appVersion = process.env.NEXT_PUBLIC_APP_VERSION;
-
   const { serverActive } = useServerStore();
   
   const {
@@ -155,7 +153,7 @@ export function AppSidebar() {
       
       {/* HEADER */}
       <SidebarHeader className={!isCollapsed ? "" : "px-0"}>
-          <Flex width={"full"} align={"center"} justify={!isCollapsed ? "between" : "center"} className={!isCollapsed ? "p-1 pt-2" : "pb-1 pt-2 px-0"}>
+          <Flex width={"full"} height={"50px"} align={"center"} justify={!isCollapsed ? "between" : "center"} className={!isCollapsed ? "p-1 pt-2" : "pb-1 pt-2 px-0"}>
             { !isCollapsed && (
               <IconButton
                   variant="ghost"
@@ -165,7 +163,7 @@ export function AppSidebar() {
               </IconButton>
             )}
             { !isCollapsed && (
-            <Text size={"1"} className="text-zinc-400">{appVersion}</Text>
+            <Text size={"1"} className="text-zinc-400 hidden md:block">v0.4.2 (harnaś)</Text>
             )}
             <div className="hidden md:block">
             <IconButton
@@ -173,7 +171,7 @@ export function AppSidebar() {
                 onClick={toggleSidebar}
                 radius="large"
             >
-                <PanelLeft size={22} strokeWidth={1}/>
+                <PanelLeft size={20} strokeWidth={1}/>
             </IconButton>
             </div>
           </Flex>
@@ -181,7 +179,7 @@ export function AppSidebar() {
       </SidebarHeader>
 
       {/* CONTENT */}
-      <SidebarContent className={!isCollapsed ? "px-3 gap-0" : "px-0 gap-0 items-center"}>
+      <SidebarContent className={!isCollapsed ? "px-3 pt-1 gap-0" : "px-0 gap-0 items-center"}>
           {filteredNav.map(section => (
           <SidebarGroup key={section.title} className={!isCollapsed ? "pt-0" : "p-0 m-0 items-center"}>
               
