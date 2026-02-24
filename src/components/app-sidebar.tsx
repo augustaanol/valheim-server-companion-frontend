@@ -18,7 +18,7 @@ import { useServerStore } from "@/store/serverStore";
 import { Text, Flex, IconButton, Tooltip } from "@radix-ui/themes"
 import { NavbarUserAvatar } from "./NavbarUserAvatar";
 import { useUserStore } from "@/store/useUserStore";
-import { LayoutDashboard, PanelLeft, ChartColumn, Terminal, Server, Package, Settings, Wrench, ListCheck, ChartNoAxesColumn, Map } from "lucide-react";
+import { LayoutDashboard, PanelLeft, ChartColumn, Terminal, Server, Package, Settings, Wrench, ListCheck, ChartNoAxesColumn, Map, Info } from "lucide-react";
 
 const navData = [
     {
@@ -114,6 +114,20 @@ const navData = [
         title: "Settings",
         url: "#",
         icon: Wrench,
+        onlyAdminVisible: true,
+        serverOfflineVisible: true,
+    },
+    ],
+    },
+    {
+    title: "Info",
+    onlyAdminVisible: false,
+    serverOfflineVisible: true,
+    items: [
+    {
+        title: "Dev info",
+        url: "/dev_info",
+        icon: Info,
         onlyAdminVisible: true,
         serverOfflineVisible: true,
     },
